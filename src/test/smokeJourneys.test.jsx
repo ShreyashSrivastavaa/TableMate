@@ -11,12 +11,12 @@ describe('End-to-End User Journeys (Smoke Tests)', () => {
     repository.reset();
   });
 
-  it('renders dashboard overview with verified non-empty metrics', () => {
+  it('renders landing page with product name, host login, and pilot inquiry', () => {
     render(<App initialEntries={['/']} />);
 
-    expect(screen.getByText(/Restaurant Overview/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/The Coastal Bistro/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/DEMO MODE/i)).toBeInTheDocument();
+    expect(screen.getByText(/TABLEMATE AI/i)).toBeInTheDocument();
+    expect(screen.getByText(/Host Portal Access/i)).toBeInTheDocument();
+    expect(screen.getByText(/\+ REQUEST A PILOT/i)).toBeInTheDocument();
   });
 
   it('navigates to /book customer portal and shows request received after booking', async () => {
@@ -95,7 +95,7 @@ describe('End-to-End User Journeys (Smoke Tests)', () => {
   });
 
   it('resets demo data cleanly via Reset Demo Data button', async () => {
-    render(<App initialEntries={['/']} />);
+    render(<App initialEntries={['/sandbox']} />);
 
     const resetButtons = screen.getAllByRole('button', { name: /Reset Demo Data/i });
     fireEvent.click(resetButtons[0]);
