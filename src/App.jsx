@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, MemoryRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastProvider } from './context/ToastContext';
+import { ThemeProvider } from './context/ThemeContext';
 import LandingPage from './pages/landing/LandingPage';
 import TermsAndPrivacyPage from './pages/legal/TermsAndPrivacyPage';
 import TenantBookingPage from './pages/tenant/TenantBookingPage';
@@ -52,19 +53,23 @@ export function AppRoutes() {
 export default function App({ initialEntries }) {
   if (initialEntries) {
     return (
-      <ToastProvider>
-        <MemoryRouter initialEntries={initialEntries}>
-          <AppRoutes />
-        </MemoryRouter>
-      </ToastProvider>
+      <ThemeProvider>
+        <ToastProvider>
+          <MemoryRouter initialEntries={initialEntries}>
+            <AppRoutes />
+          </MemoryRouter>
+        </ToastProvider>
+      </ThemeProvider>
     );
   }
 
   return (
-    <ToastProvider>
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
-    </ToastProvider>
+    <ThemeProvider>
+      <ToastProvider>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </ToastProvider>
+    </ThemeProvider>
   );
 }

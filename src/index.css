@@ -2,30 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Freshman Design Tokens ─────────────────────────────────────────────── */
 :root {
-  /* Freshman Style Tokens */
-  --color-pure-white: #ffffff;
-  --color-carbon-black: #000000;
-  --color-charcoal-shale: #101010;
+  /* Shared */
   --color-signal-red: #ff2936;
-
   --font-editorial: 'Cormorant Garamond', Georgia, serif;
   --font-sans-ui: 'Inter', system-ui, -apple-system, sans-serif;
   --font-editorial-flourish: 'Caveat', cursive;
 
-  color-scheme: dark;
+  /* Light-mode Freshman tokens */
+  --tm-bg:            #f8f7f4;       /* warm off-white */
+  --tm-bg-card:       #ffffff;
+  --tm-bg-card-alt:   #f1efea;
+  --tm-border:        rgba(0, 0, 0, 0.12);
+  --tm-border-solid:  #000000;
+  --tm-text:          #0a0a0a;
+  --tm-text-muted:    rgba(0, 0, 0, 0.55);
+  --tm-text-subtle:   rgba(0, 0, 0, 0.38);
+  --tm-input-bg:      #ffffff;
+  --tm-input-border:  rgba(0, 0, 0, 0.25);
+  --tm-input-text:    #0a0a0a;
+  --tm-input-placeholder: rgba(0, 0, 0, 0.35);
+  --tm-btn-primary-bg:    #0a0a0a;
+  --tm-btn-primary-text:  #ffffff;
+  --tm-btn-primary-hover: var(--color-signal-red);
+  --tm-overlay:       rgba(0, 0, 0, 0.6);
+}
+
+.dark {
+  /* Dark-mode Freshman tokens */
+  --tm-bg:            #000000;
+  --tm-bg-card:       #101010;
+  --tm-bg-card-alt:   #000000;
+  --tm-border:        rgba(255, 255, 255, 0.15);
+  --tm-border-solid:  #ffffff;
+  --tm-text:          #ffffff;
+  --tm-text-muted:    rgba(255, 255, 255, 0.70);
+  --tm-text-subtle:   rgba(255, 255, 255, 0.45);
+  --tm-input-bg:      #000000;
+  --tm-input-border:  rgba(255, 255, 255, 0.25);
+  --tm-input-text:    #ffffff;
+  --tm-input-placeholder: rgba(255, 255, 255, 0.35);
+  --tm-btn-primary-bg:    #ffffff;
+  --tm-btn-primary-text:  #000000;
+  --tm-btn-primary-hover: var(--color-signal-red);
+  --tm-overlay:       rgba(0, 0, 0, 0.8);
 }
 
 body {
   margin: 0;
-  background-color: var(--color-carbon-black);
-  color: var(--color-pure-white);
+  background-color: var(--tm-bg);
+  color: var(--tm-text);
   min-height: 100vh;
   font-family: var(--font-sans-ui);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Freshman Typographic Classes */
+/* ─── Freshman Typographic Utilities ───────────────────────────────────────── */
 .font-editorial {
   font-family: var(--font-editorial);
   font-weight: 200;
@@ -37,31 +71,82 @@ body {
   font-family: var(--font-editorial-flourish);
 }
 
+/* ─── Freshman Semantic Utilities ──────────────────────────────────────────── */
+.tm-bg          { background-color: var(--tm-bg); }
+.tm-bg-card     { background-color: var(--tm-bg-card); }
+.tm-bg-card-alt { background-color: var(--tm-bg-card-alt); }
+.tm-text        { color: var(--tm-text); }
+.tm-text-muted  { color: var(--tm-text-muted); }
+.tm-text-subtle { color: var(--tm-text-subtle); }
+.tm-border      { border-color: var(--tm-border); }
+
+/* Input resets for Freshman style */
+.tm-input {
+  background-color: var(--tm-input-bg);
+  border-color: var(--tm-input-border);
+  color: var(--tm-input-text);
+  font-size: 16px; /* prevent iOS auto-zoom */
+  font-weight: 400;
+}
+.tm-input::placeholder {
+  color: var(--tm-input-placeholder);
+}
+.tm-input:focus {
+  border-color: var(--tm-border-solid);
+  outline: none;
+}
+/* Override browser autofill yellow/blue tint */
+.tm-input:-webkit-autofill,
+.tm-input:-webkit-autofill:hover,
+.tm-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--tm-input-text);
+  -webkit-box-shadow: 0 0 0 1000px var(--tm-input-bg) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+
+/* Primary CTA button */
+.tm-btn-primary {
+  background-color: var(--tm-btn-primary-bg);
+  color: var(--tm-btn-primary-text);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.tm-btn-primary:hover:not(:disabled) {
+  background-color: var(--color-signal-red);
+  color: #ffffff;
+}
+
+/* Hairlines */
 .hairline-white {
   border-color: rgba(255, 255, 255, 0.2);
 }
-
 .hairline-white-solid {
   border-color: #ffffff;
 }
 
-/* Accessibility & WCAG AA Defaults */
+/* ─── Accessibility — WCAG AA Defaults ─────────────────────────────────────── */
 input, select, textarea {
-  font-size: 16px; /* Prevents auto-zoom on mobile iOS/Android and guarantees legibility */
+  font-size: 16px;
   font-weight: 400;
 }
 
-/* WCAG AA Visible Focus Indicators (2px solid, >= 3:1 contrast) */
 :focus-visible {
   outline: 2px solid #2563eb !important;
   outline-offset: 2px !important;
 }
 
-/* Dark surfaces visible focus indicator */
-.bg-black :focus-visible,
-.bg-\[\#101010\] :focus-visible,
-.bg-slate-900 :focus-visible,
+.dark :focus-visible,
 [data-theme="dark"] :focus-visible {
   outline: 2px solid #ffffff !important;
   outline-offset: 2px !important;
+}
+
+/* ─── Mobile — smooth overflow for nav tab bars ─────────────────────────────── */
+.tab-bar-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tab-bar-scroll::-webkit-scrollbar {
+  display: none;
 }

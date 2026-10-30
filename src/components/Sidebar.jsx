@@ -9,6 +9,7 @@ import {
   ExternalLink,
   X,
 } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 const NAV_ITEMS = [
   { to: '/', label: 'Overview', icon: LayoutDashboard, end: true },
@@ -20,7 +21,7 @@ const NAV_ITEMS = [
 
 export default function Sidebar({ isOpen, onClose, restaurantSettings }) {
   const content = (
-    <div className="flex flex-col h-full bg-slate-900 border-r border-slate-800 text-slate-300">
+    <div className="flex flex-col h-full bg-slate-900 dark:bg-slate-950 border-r border-slate-800 text-slate-300">
       {/* Brand Header */}
       <div className="p-5 border-b border-slate-800 flex items-center justify-between">
         <div>
@@ -74,8 +75,12 @@ export default function Sidebar({ isOpen, onClose, restaurantSettings }) {
         })}
       </nav>
 
-      {/* Footer shortcut to customer /book */}
-      <div className="p-4 border-t border-slate-800">
+      {/* Footer — theme toggle + customer /book link */}
+      <div className="p-4 border-t border-slate-800 space-y-2">
+        <div className="flex items-center justify-between px-3 py-1.5">
+          <span className="text-xs text-slate-400 font-medium">Appearance</span>
+          <ThemeToggle variant="light-surface" />
+        </div>
         <a
           href="/book"
           target="_blank"
@@ -103,7 +108,7 @@ export default function Sidebar({ isOpen, onClose, restaurantSettings }) {
             className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"
             onClick={onClose}
           />
-          <div className="relative flex-1 flex flex-col max-w-xs w-full bg-slate-900 z-50">
+          <div className="relative flex-1 flex flex-col max-w-xs w-full bg-slate-900 dark:bg-slate-950 z-50">
             {content}
           </div>
         </div>

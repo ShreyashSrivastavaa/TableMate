@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { RotateCcw, Utensils, LayoutDashboard, AlertCircle } from 'lucide-react';
 import ConfirmModal from './ConfirmModal';
+import ThemeToggle from './ThemeToggle';
 import { repository } from '../services/reservationRepository';
 import { useToast } from '../context/ToastContext';
 
@@ -61,6 +62,11 @@ export default function DemoBanner() {
               <RotateCcw className="w-3.5 h-3.5 text-amber-400" />
               <span>Reset Demo Data</span>
             </button>
+
+            <ThemeToggle
+              variant="dark-surface"
+              className="border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white"
+            />
           </div>
         </div>
       </div>

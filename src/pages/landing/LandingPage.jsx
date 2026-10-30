@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import ThemeToggle from '../../components/ThemeToggle';
 
 export default function LandingPage() {
   const [slug, setSlug] = useState('');
@@ -45,51 +46,55 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col justify-between selection:bg-[#ff2936] selection:text-white">
-      {/* Top Bar — Minimalist Typographic Header */}
-      <header className="w-full border-b border-white/10 px-6 py-5 flex items-center justify-between">
+    <div className="min-h-screen tm-bg tm-text flex flex-col justify-between selection:bg-[#ff2936] selection:text-white">
+      {/* ── Top Bar ── */}
+      <header className="w-full border-b tm-border px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
         <div className="flex items-center space-x-3 text-sm tracking-widest uppercase">
           <span className="text-[#ff2936] font-mono text-base">+</span>
           <span className="font-medium tracking-tight">TABLEMATE AI</span>
         </div>
-        <div className="flex items-center space-x-6 text-xs uppercase tracking-widest font-mono">
+
+        <div className="flex items-center gap-3 sm:gap-6 text-xs uppercase tracking-widest font-mono">
+          {/* Mobile: hide text, show only icon-equivalent */}
           <button
             onClick={() => setShowInquiryModal(true)}
-            className="hover:text-[#ff2936] transition-colors cursor-pointer"
+            className="hidden sm:block hover:text-[#ff2936] transition-colors cursor-pointer tm-text-muted"
           >
             + REQUEST A PILOT
           </button>
           <a
             href="#login-section"
-            className="hover:text-white text-white/60 transition-colors"
+            className="tm-text-muted hover:tm-text transition-colors"
           >
             HOST LOGIN
           </a>
+          <ThemeToggle variant="dark-surface" />
         </div>
       </header>
 
-      {/* Main Hero Container */}
-      <main className="flex-1 max-w-4xl mx-auto px-6 py-16 flex flex-col justify-center items-center text-center">
-        {/* Massive Italicized Wordmark */}
-        <h1 className="font-editorial text-7xl sm:text-8xl md:text-9xl tracking-tight text-white mb-6 select-none leading-none">
+      {/* ── Main Hero ── */}
+      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16 flex flex-col justify-center items-center text-center">
+        {/* Massive editorial wordmark */}
+        <h1 className="font-editorial text-6xl sm:text-8xl md:text-9xl tracking-tight tm-text mb-5 select-none leading-none">
           tablemate
         </h1>
 
-        {/* Plain Two-Line Description */}
-        <p className="text-base sm:text-lg text-white/80 max-w-xl font-normal leading-relaxed mb-4">
+        <p className="text-sm sm:text-base md:text-lg tm-text-muted max-w-xl font-normal leading-relaxed mb-4 px-2">
           Direct reservation desk and table capacity management for independent restaurants.
           Eliminate double-bookings and chaotic phone calls during dinner rush.
         </p>
 
-        {/* Bracket-Wrapped Editorial Flourish */}
-        <p className="font-flourish text-xl text-white/60 mb-12">
+        <p className="font-flourish text-lg sm:text-xl tm-text-subtle mb-10 sm:mb-12 px-2">
           [ built for independent dining rooms with zero tolerance for chaos ]
         </p>
 
-        {/* Host Login Section */}
-        <div id="login-section" className="w-full max-w-md bg-[#101010] border border-white/20 p-8 text-left">
-          <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-6">
-            <span className="text-xs uppercase tracking-widest font-mono text-white/60">
+        {/* ── Host Login Card ── */}
+        <div
+          id="login-section"
+          className="w-full max-w-md tm-bg-card border tm-border p-6 sm:p-8 text-left"
+        >
+          <div className="flex items-center justify-between border-b tm-border pb-3 mb-6">
+            <span className="text-xs uppercase tracking-widest font-mono tm-text-subtle">
               Host Portal Access
             </span>
             <span className="w-2 h-2 rounded-full bg-[#ff2936]" />
@@ -103,7 +108,7 @@ export default function LandingPage() {
             )}
 
             <div>
-              <label className="block text-sm uppercase tracking-wider font-mono font-medium text-neutral-200 mb-2">
+              <label className="block text-sm uppercase tracking-wider font-mono font-medium tm-text-muted mb-2">
                 Restaurant Slug
               </label>
               <input
@@ -113,12 +118,12 @@ export default function LandingPage() {
                 placeholder="e.g. your-restaurant"
                 autoCapitalize="none"
                 autoCorrect="off"
-                className="w-full bg-black border border-white/30 px-4 py-3 text-base text-[16px] text-white placeholder:text-neutral-400 focus:border-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white focus-visible:ring-offset-black focus:outline-none transition-colors"
+                className="w-full tm-input border px-4 py-3 focus:outline-none transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-sm uppercase tracking-wider font-mono font-medium text-neutral-200 mb-2">
+              <label className="block text-sm uppercase tracking-wider font-mono font-medium tm-text-muted mb-2">
                 Host Password
               </label>
               <input
@@ -126,90 +131,92 @@ export default function LandingPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
-                className="w-full bg-black border border-white/30 px-4 py-3 text-base text-[16px] text-white placeholder:text-neutral-400 focus:border-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white focus-visible:ring-offset-black focus:outline-none transition-colors"
+                className="w-full tm-input border px-4 py-3 focus:outline-none transition-colors"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 bg-white text-black hover:bg-[#ff2936] hover:text-white transition-colors py-3 text-sm uppercase tracking-widest font-mono font-bold cursor-pointer disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white focus-visible:ring-offset-black"
+              className="w-full mt-2 tm-btn-primary py-3 text-sm uppercase tracking-widest font-mono font-bold cursor-pointer disabled:opacity-50"
             >
               {loading ? 'Verifying Credentials...' : 'Sign In to Host Dashboard →'}
             </button>
           </form>
 
-          <div className="mt-6 pt-4 border-t border-white/20 text-xs text-neutral-300 font-mono font-medium flex items-center justify-between">
+          <div className="mt-6 pt-4 border-t tm-border text-xs tm-text-muted font-mono font-medium flex items-center justify-between">
             <span>Need password reset?</span>
-            <span className="text-neutral-200">Contact Administrator</span>
+            <span className="tm-text">Contact Administrator</span>
           </div>
         </div>
 
-        {/* Direct Contact for Pilots */}
-        <div className="mt-12 text-center text-xs font-mono font-medium text-neutral-300">
+        {/* Pilot CTA */}
+        <div className="mt-10 sm:mt-12 text-center text-xs font-mono font-medium tm-text-muted">
           Interested in running a pilot for your restaurant?{' '}
           <button
             onClick={() => setShowInquiryModal(true)}
-            className="text-white underline underline-offset-4 hover:text-[#ff2936] transition-colors cursor-pointer ml-1 focus-visible:ring-2 focus-visible:ring-white"
+            className="tm-text underline underline-offset-4 hover:text-[#ff2936] transition-colors cursor-pointer ml-1"
           >
             Request Pilot Access
           </button>
         </div>
       </main>
 
-      {/* Persistent Bottom Project Ticker */}
-      <footer className="w-full border-t border-white/20 bg-black py-4 px-6 text-xs font-mono flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center space-x-6 text-neutral-300 text-xs font-medium uppercase tracking-wider">
-          <span>Engine: PostgreSQL (Neon)</span>
-          <span className="hidden sm:inline">|</span>
-          <span className="hidden sm:inline">Isolation: Multi-Tenant</span>
-          <span className="hidden sm:inline">|</span>
-          <span className="hidden sm:inline">Double-Booking Guard: Active</span>
-        </div>
+      {/* ── Footer ── */}
+      <footer className="w-full border-t tm-border tm-bg py-4 px-4 sm:px-6 text-xs font-mono">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 tm-text-subtle text-xs font-medium uppercase tracking-wider">
+            <span>Engine: PostgreSQL (Neon)</span>
+            <span className="hidden sm:inline">|</span>
+            <span className="hidden sm:inline">Isolation: Multi-Tenant</span>
+            <span className="hidden sm:inline">|</span>
+            <span className="hidden sm:inline">Double-Booking Guard: Active</span>
+          </div>
 
-        <div className="flex items-center space-x-4 text-xs font-medium text-neutral-300">
-          <Link to="/terms" className="hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-white">
-            Terms & Data Notice
-          </Link>
-          <span>•</span>
-          <Link to="/privacy" className="hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-white">
-            Privacy
-          </Link>
-          <span>•</span>
-          <span className="text-neutral-400">v1.0.0</span>
+          <div className="flex items-center space-x-4 text-xs font-medium tm-text-muted">
+            <Link to="/terms" className="hover:tm-text transition-colors">
+              Terms &amp; Data Notice
+            </Link>
+            <span>•</span>
+            <Link to="/privacy" className="hover:tm-text transition-colors">
+              Privacy
+            </Link>
+            <span>•</span>
+            <span className="tm-text-subtle">v1.0.0</span>
+          </div>
         </div>
       </footer>
 
-      {/* Pilot Request Modal */}
+      {/* ── Pilot Request Modal ── */}
       {showInquiryModal && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-[#101010] border border-white/30 max-w-lg w-full p-8 text-left">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
-              <h3 className="text-sm uppercase tracking-widest font-mono text-white">
+        <div className="fixed inset-0 flex items-center justify-center p-4 z-50" style={{ backgroundColor: 'var(--tm-overlay)', backdropFilter: 'blur(4px)' }}>
+          <div className="tm-bg-card border tm-border max-w-lg w-full p-6 sm:p-8 text-left">
+            <div className="flex items-center justify-between border-b tm-border pb-4 mb-6">
+              <h3 className="text-sm uppercase tracking-widest font-mono tm-text">
                 Request Restaurant Pilot
               </h3>
               <button
                 onClick={() => setShowInquiryModal(false)}
-                className="text-white/50 hover:text-white font-mono text-sm cursor-pointer"
+                className="tm-text-subtle hover:tm-text font-mono text-sm cursor-pointer"
               >
                 [ESC]
               </button>
             </div>
 
-            <p className="text-sm text-white/80 mb-6 leading-relaxed">
+            <p className="text-sm tm-text-muted mb-6 leading-relaxed">
               We onboard independent restaurants with a custom floor plan, calibrated 90-minute table turn rules, printable QR table tents, and dedicated booking portal.
             </p>
 
-            <div className="bg-black border border-white/10 p-4 mb-6 space-y-2 text-xs font-mono text-white/70">
-              <div className="text-white font-semibold mb-1">Direct Contact:</div>
-              <div>• Email: <span className="text-white">pilot@tablemate.ai</span></div>
+            <div className="tm-bg-card-alt border tm-border p-4 mb-6 space-y-2 text-xs font-mono tm-text-subtle">
+              <div className="tm-text font-semibold mb-1">Direct Contact:</div>
+              <div>• Email: <span className="tm-text">pilot@tablemate.ai</span></div>
               <div>• Setup: 24-hour turnaround with your floor table inventory</div>
               <div>• Pilot fee: ₹999 flat onboarding</div>
             </div>
 
             <button
               onClick={() => setShowInquiryModal(false)}
-              className="w-full bg-white text-black py-3 text-xs uppercase tracking-widest font-mono font-semibold hover:bg-[#ff2936] hover:text-white transition-colors cursor-pointer"
+              className="w-full tm-btn-primary py-3 text-xs uppercase tracking-widest font-mono font-semibold"
             >
               Close Window
             </button>
