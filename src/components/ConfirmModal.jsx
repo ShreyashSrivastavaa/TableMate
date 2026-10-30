@@ -59,30 +59,30 @@ export default function ConfirmModal({
           </div>
           <button
             onClick={onCancel}
-            className="text-slate-400 hover:text-slate-600 p-1 rounded-md"
+            className="text-slate-600 hover:text-slate-900 p-1 rounded-md focus-visible:ring-2 focus-visible:ring-indigo-600"
             aria-label="Close dialog"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <p className="mt-3 text-sm text-slate-600 leading-relaxed">{message}</p>
+        <p className="mt-3 text-sm text-slate-800 font-normal leading-relaxed">{message}</p>
 
         <div className="mt-6 flex items-center justify-end gap-3">
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 focus:ring-2 focus:ring-slate-300 transition-colors"
+            className="px-4 py-2 text-sm font-semibold text-slate-800 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-600 transition-colors"
           >
             {cancelLabel}
           </button>
           <button
             type="button"
             onClick={onConfirm}
-            className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors focus:ring-2 ${
+            className={`px-4 py-2 text-sm font-bold text-white rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 ${
               isDestructive
-                ? 'bg-rose-600 hover:bg-rose-700 focus:ring-rose-500'
-                : 'bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500'
+                ? 'bg-rose-700 hover:bg-rose-800 focus-visible:ring-rose-700'
+                : 'bg-indigo-700 hover:bg-indigo-800 focus-visible:ring-indigo-700'
             }`}
           >
             {confirmLabel}

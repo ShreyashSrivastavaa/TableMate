@@ -1,5 +1,5 @@
-import { DEFAULT_TABLES, RESERVATION_STATUS, RESERVATION_SOURCE } from '../domain/constants';
-import { getTodayKolkata, addDaysToDate } from '../domain/time';
+import { DEFAULT_TABLES, RESERVATION_STATUS, RESERVATION_SOURCE } from '../shared/constants.js';
+import { getTodayKolkata, addDaysToDate } from '../shared/time.js';
 
 export function generateSampleReservations(baseDate = getTodayKolkata()) {
   const rawList = [
