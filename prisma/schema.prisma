@@ -1,0 +1,121 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Restaurant {
+  id                    String        @id @default(uuid())
+  slug                  String        @unique
+  name                  String
+  address               String?       @default("")
+  phone                 String?       @default("")
+  whatsappNumber        String?       @default("")
+  openTime              String        @default("12:00")
+  closeTime             String        @default("23:00")
+  closedDays            String        @default("[]") // JSON string e.g. ["Monday"]
+  maxPartySize          Int           @default(8)
+  ownerPasswordHash     String
+  mustChangePassword    Boolean       @default(true)
+  whatsappEnabled       Boolean       @default(false)
+  whatsappPhoneNumberId String?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  tables                Table[]
+  reservations          Reservation[]
+  conversations         WhatsAppConversation[]
+
+  @@index([slug])
+}
+
+model Table {
+  id           String        @id @default(uuid())
+  restaurantId String
+  number       String
+  capacity     Int
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  restaurant   Restaurant    @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  reservations Reservation[]
+
+  @@unique([restaurantId, number])
+  @@index([restaurantId])
+}
+
+model Reservation {
+  id              String        @id @default(uuid())
+  restaurantId    String
+  reference       String        @unique
+  name            String
+  phone           String
+  date            String        // YYYY-MM-DD
+  time            String        // HH:mm
+  guests          Int
+  notes           String?       @default("")
+  status          String        @default("pending") // pending | confirmed | rejected | cancelled
+  source          String        @default("booking-form") // booking-form | whatsapp | manual
+  whatsappOptIn   Boolean       @default(false)
+  whatsappOptInAt DateTime?
+  tableId         String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  restaurant      Restaurant    @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  table           Table?        @relation(fields: [tableId], references: [id], onDelete: SetNull)
+  statusEvents    StatusEvent[]
+
+  @@index([restaurantId, date])
+  @@index([restaurantId, status])
+  @@index([phone])
+}
+
+model StatusEvent {
+  id            String      @id @default(uuid())
+  reservationId String
+  fromStatus    String?
+  toStatus      String
+  reason        String?
+  timestamp     DateTime    @default(now())
+
+  reservation   Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+
+  @@index([reservationId])
+}
+
+model WhatsAppProcessedMessage {
+  id           String   @id @default(uuid())
+  messageId    String   @unique
+  restaurantId String
+  createdAt    DateTime @default(now())
+
+  @@index([messageId])
+}
+
+model WhatsAppConversation {
+  id            String     @id @default(uuid())
+  restaurantId  String
+  senderPhone   String
+  state         String     // JSON serialized state machine payload
+  optedOut      Boolean    @default(false)
+  lastMessageAt DateTime   @default(now())
+  expiresAt     DateTime
+
+  restaurant    Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@unique([restaurantId, senderPhone])
+  @@index([restaurantId])
+}
+
+model RateLimit {
+  key       String   @id
+  count     Int      @default(1)
+  expiresAt DateTime
+
+  @@index([expiresAt])
+}
+
