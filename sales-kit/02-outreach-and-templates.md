@@ -1,67 +1,51 @@
-# Outreach Messages & Personalized Templates
+# Pilot Outreach Messages & Clean Templates
 
-> **Rule:** Never send messages automatically. All outreach must be verified, personalized, and dispatched manually by you.
+> **Rule:** Never send automated messages. All outreach must be personalized and dispatched manually by you. Use only restaurants you have personally scouted and named.
 
 ---
 
-## 1. Short Direct Outreach Message (Quick Hook)
+## 1. Short Direct Outreach Message (Social / Text)
 
 ```text
-Hey! We're building TableMate AI, a simple tool to help independent restaurants manage table reservations without the usual back-and-forth phone calls during rush hours. We're opening a few early pilot spots in the neighbourhood and would love to show you a 90-second demo on a laptop or phone. Would you be open to taking a quick look this week?
+Hi [Owner/Manager Name]! I'm building TableMate AI, a reservation tool for independent dining rooms to handle table bookings without phone tag during rush hour. We are onboarding 2 local restaurants for a hands-on pilot (we map your actual floor tables and operating hours). Would you be open to a 2-minute live demo on your phone this week?
 ```
 
 ---
 
-## 2. Personalized Outreach Template (High-Conversion)
+## 2. Personalized Email / Letter Outreach Template
 
-**Subject (if Email):** Table reservations at [Restaurant] — quick idea
+**Subject:** Table reservations at [Restaurant Name] — quick idea
 
 ```text
-Hi [Name],
+Hi [Owner/Manager Name],
 
-I’ve been following [Restaurant] and love what you've done with [specific observation, e.g., your coastal weekend specials / the lively courtyard ambiance / your packed Friday evening dinner service].
+I've been following [Restaurant Name] and love what you've created with [genuine observation, e.g. your courtyard dining space / weekend chef specials].
 
-One thing we noticed talking to independent restaurant managers is how much time the front-of-house team spends juggling incoming reservation calls and manual registers right in the middle of dinner rush. 
+One thing independent restaurant teams frequently mention is how much front-of-house focus gets lost answering phone calls and managing paper reservation diaries right in the middle of dinner service.
 
-We built TableMate AI to solve exactly this: a lightweight booking link where guests request tables with automatic capacity checks (so no double-booking), plus an interactive WhatsApp-style chat simulation that takes down party sizes and times without staff back-and-forth.
+We built TableMate AI to streamline this:
+1. A direct booking link for your Instagram bio and Google Maps profile with printable QR table tents.
+2. Real table capacity checks so double-bookings within your 90-minute dining window are mathematically impossible.
+3. A clean host dashboard on your phone or laptop with 1-click status updates and pre-filled WhatsApp click-to-chat links for instant guest communication.
 
-We’re onboarding 3 pilot restaurants in the area for a test run (₹999 setup, fully customized with your floor plan and opening hours). 
+We are onboarding pilot partner venues for a ₹999 setup fee (covers your custom floor plan, table capacities, and staff walkthrough).
 
-Could I drop by for 5 minutes or send over a 60-second video demo to see if it’s a good fit for [Restaurant]?
+Could I stop by for 5 minutes or send a 60-second video demo to see if this fits [Restaurant Name]?
 
 Best regards,
+
 [Your Name]
 Founder, TableMate AI
-[Your Mobile Number]
+[Your Contact Phone Number]
+[Your Email Address]
 ```
 
 ---
 
-## 3. Example of Filled-In Template (Sample Context: Indiranagar Bistro)
+## 3. Outreach Customization Checklist Before Sending
 
-```text
-Hi Chef Rohit,
-
-I’ve been following The Coastal Bistro and love what you've done with the seafood weekend catch specials and the buzzing courtyard dining area.
-
-One thing we noticed talking to independent restaurant managers is how much time the front-of-house team spends juggling incoming reservation calls and manual registers right in the middle of dinner rush. 
-
-We built TableMate AI to solve exactly this: a lightweight booking link where guests request tables with automatic capacity checks (so no double-booking), plus an interactive WhatsApp-style chat simulation that takes down party sizes and times without staff back-and-forth.
-
-We’re onboarding 3 pilot restaurants in the area for a test run (₹999 setup, fully customized with your floor plan and opening hours). 
-
-Could I drop by for 5 minutes or send over a 60-second video demo to see if it’s a good fit for The Coastal Bistro?
-
-Best regards,
-Shreyash Srivastava
-Founder, TableMate AI
-+91 98XXX XXXXX
-```
-
----
-
-## 4. Short Follow-Up Message (Send after 3 days if no response)
-
-```text
-Hey [Name]! Just circling back on this — no pressure at all. If you're interested in checking out how the simulated booking link looks with [Restaurant]'s menu and tables, I have a sandbox ready to show you in 2 minutes. Let me know if tomorrow afternoon works for a quick chat!
-```
+Before dispatching any message:
+- [ ] Confirm the manager or owner's correct name.
+- [ ] Confirm you have eaten there or observed their dining room in person.
+- [ ] Ensure you cite a genuine observation about their venue (never generic flattery).
+- [ ] Double-check your own contact details and pilot URL.

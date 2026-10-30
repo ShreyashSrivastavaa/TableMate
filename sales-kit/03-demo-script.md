@@ -1,43 +1,48 @@
-# Demo Scripts: 30-Second & 2-Minute Walkthroughs
+# Live Demo Scripts: 30-Second & 2-Minute Walkthroughs
 
-Use this script during in-person visits or over a quick screen-share call. 
+Use this script during in-person meetings or screen shares with restaurant owners and general managers.
 
-> **Setup Note:** Before starting the demo, open **Tab 1** with the Restaurant Dashboard (`/`) and **Tab 2** with the Customer Portal (`/book`) in the same browser.
+> **Preparation:** Before starting, onboard a sample or pilot restaurant with:
+> `npm run onboard -- --slug=sample-kitchen --name="Your Sample Restaurant"`
+> Open the Customer Booking Portal (`/r/sample-kitchen/book`) on your phone, and open the Host Admin Dashboard (`/r/sample-kitchen/admin`) on your laptop or tablet.
 
 ---
 
-## 1. The 30-Second Elevator Demo
+## 1. The 30-Second Elevator Pitch (Two-Device Live Flow)
 
-| Time | Screen / Action | Talk Track |
+| Time | Action | Pitch Talk Track |
 |---|---|---|
-| **0:00 - 0:10** | Show **Tab 2 (/book)** on mobile view | *"Imagine a guest wants a table on a busy Friday night. Instead of calling your busy host, they click your link or simulated WhatsApp desk."* |
-| **0:10 - 0:20** | Click **"Table for 4"**, pick **"Tomorrow"**, pick **"7:30 PM"**, and type name/phone | *"The system instantly checks your real table capacity. If all 4-top tables are booked for 7:30 PM, it won't let them double-book. It locks best-fit Table 3 and gives them a reference code: 'Request received, pending restaurant review.'"* |
-| **0:20 - 0:30** | Switch to **Tab 1 (Dashboard)** and click **Confirm** | *"Right on your dashboard, that request pops up live. Your host taps 'Confirm', the table is locked for 90 minutes, and the customer record is saved without manual registers."* |
+| **0:00 – 0:10** | Hand phone to owner on **`/r/:slug/book`** | *"Instead of your host answering 15 phone calls during Friday dinner rush, guests scan your table tent QR code or tap the link in your Instagram bio."* |
+| **0:10 – 0:20** | Owner taps **"Table for 4"**, picks **"Tomorrow 7:30 PM"**, and enters their name | *"The system instantly checks your physical table inventory in PostgreSQL. If all 4-tops are booked within 90 minutes, it blocks the slot to prevent double-booking. Once submitted, it creates a pending reservation."* |
+| **0:20 – 0:30** | Show **Host Dashboard (`/r/:slug/admin`)** on your laptop | *"Within 15 seconds, the reservation pops up on your screen with a 'NEW' badge. You tap 'Confirm', then click the WhatsApp button to message the guest directly from your phone. No manual register errors, zero double-bookings."* |
 
 ---
 
-## 2. The Comprehensive 2-Minute Pitch (For General Managers / Owners)
+## 2. The Comprehensive 2-Minute Owner Presentation
 
 ### Act 1: The Problem (0:00 – 0:30)
-- *"Every busy evening between 7:00 PM and 9:30 PM, your host gets interrupted by 10 to 15 phone calls asking: 'Do you have a table for 4 tonight?'"*
-- *"Half the time, someone writes a reservation down in a paper diary, another staff member seats a walk-in at that exact table, and you end up with an awkward double-booking."*
+- *"Every busy evening between 7:00 PM and 9:30 PM, the front-of-house team gets interrupted by repeat calls asking: 'Do you have a table for 4 tonight?'"*
+- *"When staff jot down names in paper diaries or across separate phones, accidental double-bookings happen, leaving guests waiting awkwardly at the door."*
 
-### Act 2: The Customer Experience (0:30 – 1:00)
-- Open `/book` in simulated WhatsApp chat tab.
-- *"Guests can chat with your automated booking desk or use the clean 3-step form."*
-- Click quick chips: `4 guests` &rarr; `tomorrow` &rarr; `7:30 pm` &rarr; enter sample guest name & phone.
-- Point out the confirmation screen:
-  - *"Notice it says **Request Received**, reference `TM-XXXXXX`. We never tell a customer 'Confirmed' until your actual staff verifies it."*
+### Act 2: The Diner Experience (0:30 – 1:00)
+- Open `/r/:slug/book`.
+- Show available time slots calculated directly from opening hours and physical tables.
+- Submit a booking request for 2 guests.
+- Highlight the confirmation screen:
+  - *"Notice the status clearly says **Pending Restaurant Review** with reference `TM-XXXXXX`. We never tell a guest 'Confirmed' until your actual staff verifies it."*
+  - Show the **Open WhatsApp** button with the disclosure label: *'Opens WhatsApp on your phone. Nothing is sent automatically.'*
 
 ### Act 3: The Host Dashboard & Availability Engine (1:00 – 1:35)
-- Switch to Tab 1 (Dashboard Overview).
-- Show the live counter update from 0 pending to 1 pending.
-- Navigate to **Floor & Table Status (`/tables`)**:
-  - *"Here’s your simulated floor plan: 7 tables with capacities 2, 4, 6, and 8. The engine automatically allocated Table 4 to this party because it’s the best-fit size."*
-  - *"If another party of 4 books overlapping within 90 minutes, Table 4 is marked busy and won't show up in candidate slots."*
+- Open `/r/:slug/admin`.
+- Demonstrate the live 15-second polling refresh.
+- Show the table allocation map:
+  - *"Each table size (2-top, 4-top, banquet) is mapped to your actual dining room. The engine assigns the best-fit table and locks that table for 90 minutes."*
+- Click **Confirm**:
+  - Show the status transition from `PENDING` to `CONFIRMED`.
+  - Show the **WhatsApp Confirm** button that opens WhatsApp with a pre-filled confirmation text including the guest's name, date, time, and reference code.
 
-### Act 4: Guest History & Close (1:35 – 2:00)
-- Navigate to **Guest Directory (`/customers`)**:
-  - *"Every booking is de-duplicated by phone number. If Priya visits 3 times, you see her entire booking history, her dietary preferences, and her favorite table."*
-- Transition to the close:
-  - *"We’re setting up 3 pilot restaurants this month for ₹999 with your custom hours and floor tables. Would you like us to configure your tables and do a test run?"*
+### Act 4: Onboarding & The ₹999 Pilot Close (1:35 – 2:00)
+- Show the **QR Code & Venue Settings** tab:
+  - *"You get a ready-to-print QR code for table tents and reception signage, plus 1-click CSV export for your records."*
+- Close the conversation:
+  - *"We are setting up 2 pilot dining rooms this week for ₹999. We map your actual floor tables and operating hours in 24 hours. Would you like to do a test run with us?"*

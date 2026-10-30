@@ -1,37 +1,33 @@
-# The ₹999 Introductory Pilot Scope & Terms
+# The ₹999 Pilot Scope & Onboarding Contract
 
-## 1. What the ₹999 Pilot Is
-The **₹999 introductory pilot** is an exploratory, low-friction setup fee designed to test market willingness to pay and validate core workflow adoption with independent restaurant owners. 
-
-It is an introductory rate for early pilot partners, **not a permanent or market-validated enterprise pricing plan**.
+## 1. Purpose of the ₹999 Pilot
+The **₹999 introductory pilot fee** is an exploratory, low-friction setup charge designed to test operational adoption with independent restaurant owners. It is an introductory pilot tier for early partner venues, not a permanent enterprise pricing contract.
 
 ---
 
-## 2. What the ₹999 Pilot Setup INCLUDES:
-1. **Customized Venue Branding:** Setup with your actual restaurant name, cuisine description, address, and public contact phone number.
-2. **Floor Table Configuration:** Mapping your actual floor plan (up to 12 physical tables with defined seating capacities: 2-tops, 4-tops, booths, and banquet tables).
-3. **Operational Hours & Buffer Calibration:** Configuring your specific opening and closing hours, meal service slots (30-minute intervals), and 90-minute dining duration guardrails.
-4. **Staff & Host Training Walkthrough:** A 30-minute personal onboarding session for your restaurant manager and front-of-house host on how to review pending requests, confirm allocations, and view floor status.
-5. **Customer Booking Link (/book):** A clean, branded booking portal link that your restaurant can place on your Instagram bio, Google Maps business profile, or send to guests via SMS/chat.
+## 2. What the ₹999 Setup INCLUDES
+1. **Dedicated URL Identifier:** Custom restaurant slug (`/r/:slug/book`) with venue name, address, cuisine details, and contact numbers.
+2. **Physical Floor Table Mapping:** Configuration of your actual dining room tables with capacities (2-tops, 4-tops, booths, banquet).
+3. **Turn Rules Calibration:** Setting your specific meal service hours (lunch/dinner), 30-minute reservation increments, and 90-minute dining turn guardrails.
+4. **Downloadable QR Code:** Generated high-resolution vector QR code for printed reception tents and menu inserts.
+5. **Private Host Dashboard (`/r/:slug/admin`):** Password-authenticated host desk with live 15-second polling, filter controls, 1-click status transitions, and CSV reservation export.
+6. **Manual WhatsApp Reachout (`wa.me`):** Pre-formatted customer communication links for confirm and reject messaging directly from host phones without third-party API fees.
+7. **Staff Onboarding Session:** A 30-minute walkthrough for the general manager and front-of-house host on managing daily service.
 
 ---
 
-## 3. What the Pilot Setup EXCLUDES (Stated Plainly):
-To maintain transparency and regulatory compliance:
-- **NO Payment Collection or Gateway Integration:** TableMate AI does not charge reservation deposits, collect dining prepayments, or process credit cards. Any dining billing remains 100% between the restaurant and the diner in person.
-- **NO Live WhatsApp Cloud API Sending (Yet):** The pilot uses an in-browser chat simulation. Direct automated outbound WhatsApp messages require Meta Business verification and dedicated Twilio/Meta API credentials, which are scoped for Phase 2.
-- **NO Third-Party POS Integration:** The MVP does not sync automatically with legacy POS machines (Petpooja, Posist, etc.). Bookings live within the TableMate dashboard.
-- **NO Cloud Multi-User Auth:** The pilot MVP persists data locally per device browser. Multi-device sync across different staff phones requires the future hosted backend database.
+## 3. What the Pilot Setup EXCLUDES (Stated Plainly)
+- **NO Payment Gateways or Deposits:** TableMate does not collect advance dining deposits, credit cards, or booking fees. Dining bills remain 100% between the restaurant and the guest.
+- **NO Automated WhatsApp Bot Outbound:** Direct background automated WhatsApp messages require Meta Business verification and dedicated Meta Graph API credentials. Pilot communication operates via staff-approved `wa.me` click-to-chat links.
+- **NO POS Integration:** Does not sync automatically with legacy POS hardware (Petpooja, Posist, etc.). Bookings live within the TableMate host portal.
+- **NO Disaster Recovery SLA:** The database is hosted on serverless PostgreSQL (Neon). During this pilot phase, there is no formal backup guarantee or enterprise disaster recovery SLA.
 
 ---
 
-## 4. Current Limitations Summary Table
-
-| Capability | Current MVP Status | Future Commercial Roadmap |
-|---|---|---|
-| **Availability Calculation** | Full local engine (90-min overlap check) | Serverless PostgreSQL backend |
-| **Double-Booking Prevention** | Best-fit table assignment | Concurrency transactions & row-locking |
-| **WhatsApp Chat** | Deterministic simulation state machine | Official Meta WhatsApp Business API |
-| **Data Persistence** | Browser `localStorage` (cross-tab sync) | Cloud PostgreSQL with Prisma ORM |
-| **Payments / Deposits** | Not implemented (out of scope) | Razorpay / Stripe for weekend deposits |
-| **Staff Accounts** | Single host view | Role-based host/manager authentication |
+## 4. Day-1 Onboarding Checklist
+- [ ] Agree on venue slug (e.g. `your-restaurant` -> `/r/your-restaurant/book`)
+- [ ] Provide physical table inventory (e.g. 4x 2-seaters, 6x 4-seaters, 1x 8-seater)
+- [ ] Set operating hours & weekly closed days (if applicable)
+- [ ] Run `npm run onboard -- --slug=your-restaurant --name="Your Restaurant"`
+- [ ] Provide host with initial temporary password and enforce password change on first login
+- [ ] Print QR code for front desk & add booking link to Instagram profile

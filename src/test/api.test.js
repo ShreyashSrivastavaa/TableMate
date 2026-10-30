@@ -262,6 +262,42 @@ describe('TableMate Multi-Tenant Backend API & WhatsApp Integration', () => {
       expect(rateLimitRecord.count).toBeGreaterThanOrEqual(1);
     });
 
+    it('cleans up expired RateLimit rows from database', async () => {
+      const expiredKey = `test_expired:${Date.now()}`;
+      const activeKey = `test_active:${Date.now()}`;
+
+      // Insert one expired record and one active record
+      await prisma.rateLimit.createMany({
+        data: [
+          {
+            key: expiredKey,
+            count: 3,
+            expiresAt: new Date(Date.now() - 60 * 1000), // Expired 1 min ago
+          },
+          {
+            key: activeKey,
+            count: 1,
+            expiresAt: new Date(Date.now() + 60 * 1000), // Active for 1 min
+          },
+        ],
+      });
+
+      const { cleanupExpiredRateLimits } = await import('../../server/rateLimit.js');
+      const deletedCount = await cleanupExpiredRateLimits();
+      expect(deletedCount).toBeGreaterThanOrEqual(1);
+
+      // Verify expired row is gone
+      const checkExpired = await prisma.rateLimit.findUnique({ where: { key: expiredKey } });
+      expect(checkExpired).toBeNull();
+
+      // Verify active row remains
+      const checkActive = await prisma.rateLimit.findUnique({ where: { key: activeKey } });
+      expect(checkActive).toBeDefined();
+
+      // Clean up active record
+      await prisma.rateLimit.deleteMany({ where: { key: activeKey } });
+    });
+
     it('enforces login attempt limit per restaurant slug regardless of IP with temporary lockout', async () => {
       const targetSlug = 'lockout-test-kitchen';
       const salt = await bcrypt.genSalt(10);
@@ -408,6 +444,27 @@ describe('TableMate Multi-Tenant Backend API & WhatsApp Integration', () => {
   describe('5. WhatsApp Cloud API Webhook', () => {
     const verifyToken = process.env.WHATSAPP_VERIFY_TOKEN || 'tablemate_test_verify_token';
     const appSecret = process.env.WHATSAPP_APP_SECRET || 'test_app_secret_12345';
+    let originalGlobalFetch;
+
+    beforeAll(() => {
+      originalGlobalFetch = global.fetch;
+      process.env.WHATSAPP_ACCESS_TOKEN = process.env.WHATSAPP_ACCESS_TOKEN || 'test_whatsapp_access_token_123';
+      // Default mock for successful WhatsApp Graph API replies
+      global.fetch = vi.fn().mockImplementation(async (url, opts) => {
+        if (typeof url === 'string' && url.includes('graph.facebook.com')) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({ messages: [{ id: `wamid_meta_ack_${Date.now()}` }] }),
+          };
+        }
+        return originalGlobalFetch(url, opts);
+      });
+    });
+
+    afterAll(() => {
+      global.fetch = originalGlobalFetch;
+    });
 
     it('GET /api/whatsapp/webhook succeeds with correct verify token', async () => {
       const res = await request(app)
@@ -599,6 +656,144 @@ describe('TableMate Multi-Tenant Backend API & WhatsApp Integration', () => {
         where: { messageId },
       });
       expect(afterSuccessRecord).toBeDefined();
+    });
+
+    it('returns 500 and does NOT mark message processed when Meta API returns 401 Unauthorized', async () => {
+      const messageId = `wamid_meta_401_${Date.now()}`;
+      const payload = {
+        object: 'whatsapp_business_account',
+        entry: [
+          {
+            id: 'BIZ_401_TEST',
+            changes: [
+              {
+                value: {
+                  messaging_product: 'whatsapp',
+                  metadata: {
+                    phone_number_id: '1234567890_test',
+                  },
+                  messages: [
+                    {
+                      from: '919845012345',
+                      id: messageId,
+                      timestamp: String(Math.floor(Date.now() / 1000)),
+                      text: { body: 'Trigger Meta 401 test' },
+                      type: 'text',
+                    },
+                  ],
+                },
+                field: 'messages',
+              },
+            ],
+          },
+        ],
+      };
+
+      const raw = JSON.stringify(payload);
+      const signature = 'sha256=' + crypto.createHmac('sha256', appSecret).update(raw).digest('hex');
+
+      // Mock global fetch to return 401 from Meta Graph API
+      const originalFetch = global.fetch;
+      global.fetch = vi.fn().mockResolvedValueOnce({
+        ok: false,
+        status: 401,
+        json: async () => ({
+          error: {
+            message: 'Invalid OAuth access token.',
+            type: 'OAuthException',
+            code: 190,
+          },
+        }),
+      });
+
+      try {
+        const res = await request(app)
+          .post('/api/whatsapp/webhook')
+          .set('x-hub-signature-256', signature)
+          .set('Content-Type', 'application/json')
+          .send(raw);
+
+        // Webhook MUST return 500 on 401 from Meta
+        expect(res.status).toBe(500);
+        expect(res.body.error).toBe('Processing error');
+
+        // Message MUST NOT be marked processed
+        const record = await prisma.whatsAppProcessedMessage.findUnique({
+          where: { messageId },
+        });
+        expect(record).toBeNull();
+      } finally {
+        global.fetch = originalFetch;
+      }
+    });
+
+    it('returns 500 and does NOT mark message processed when Meta API returns 500 Internal Error', async () => {
+      const messageId = `wamid_meta_500_${Date.now()}`;
+      const payload = {
+        object: 'whatsapp_business_account',
+        entry: [
+          {
+            id: 'BIZ_500_TEST',
+            changes: [
+              {
+                value: {
+                  messaging_product: 'whatsapp',
+                  metadata: {
+                    phone_number_id: '1234567890_test',
+                  },
+                  messages: [
+                    {
+                      from: '919845012345',
+                      id: messageId,
+                      timestamp: String(Math.floor(Date.now() / 1000)),
+                      text: { body: 'Trigger Meta 500 test' },
+                      type: 'text',
+                    },
+                  ],
+                },
+                field: 'messages',
+              },
+            ],
+          },
+        ],
+      };
+
+      const raw = JSON.stringify(payload);
+      const signature = 'sha256=' + crypto.createHmac('sha256', appSecret).update(raw).digest('hex');
+
+      // Mock global fetch to return 500 from Meta Graph API
+      const originalFetch = global.fetch;
+      global.fetch = vi.fn().mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        json: async () => ({
+          error: {
+            message: 'Temporary internal service error at Meta.',
+            type: 'OAuthException',
+            code: 2,
+          },
+        }),
+      });
+
+      try {
+        const res = await request(app)
+          .post('/api/whatsapp/webhook')
+          .set('x-hub-signature-256', signature)
+          .set('Content-Type', 'application/json')
+          .send(raw);
+
+        // Webhook MUST return 500 on 500 from Meta
+        expect(res.status).toBe(500);
+        expect(res.body.error).toBe('Processing error');
+
+        // Message MUST NOT be marked processed
+        const record = await prisma.whatsAppProcessedMessage.findUnique({
+          where: { messageId },
+        });
+        expect(record).toBeNull();
+      } finally {
+        global.fetch = originalFetch;
+      }
     });
   });
 });

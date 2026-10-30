@@ -1,35 +1,38 @@
-# Pilot Outreach Prospect List: Bengaluru Independent Restaurants
+# Pilot Prospecting Rubric & Outreach Tracking Sheet
 
-> **Notice:** All entries below are gathered from publicly available dining listings and local business directories. Verify and dispatch all outreach messages manually. Never send automated messages.
-
----
-
-| # | Restaurant Name | Area / Neighbourhood | Public Contact Info | Cuisine / Concept | Why They Are a Prime Pilot Fit |
-|---|---|---|---|---|---|
-| 1 | **The Fatty Bao** | 12th Main, Indiranagar | +91 80 4411 4499 / Public IG | Asian Gastrobar & Rooftop | High weekend dinner demand; table reservations frequently clash with walk-in rooftop crowds. |
-| 2 | **Toit Brewpub** | 100ft Road, Indiranagar | +91 90197 13388 / Public Business line | Microbrewery & Continental | Iconic craft brewery with heavy wait times; great candidate for 90-minute table turn calibrations. |
-| 3 | **Smoke House Deli** | Lavelle Road / Indiranagar | +91 80 4111 3340 / reservations@ | All-day European Cafe | Casual premium dining where guests often book ahead for business lunches and date nights. |
-| 4 | **Olive Beach** | Wood Street, Ashok Nagar | +91 80 4112 8400 / Public Desk | Mediterranean Fine Dining | Dedicated reservation desk; would benefit from instant guest history and dietary note tracking. |
-| 5 | **Chinita Real Mexican Food** | 5th Block, Koramangala | +91 80 4965 2530 / Public IG | Authentic Mexican | Boutique independent restaurant with compact seating (~10 tables); double-booking hurts them badly. |
-| 6 | **O Pedro / Bombay Canteen Pop-up (Partner Outlets)** | Central Bengaluru | Public business desk | Regional Indian & Seafood | High-energy dining rooms where phone reservations interrupt busy service captains. |
-| 7 | **Toscano** | UB City / Koramangala | +91 80 4173 8800 / reservations desk | Italian Wine Bar & Trattoria | Steady flow of anniversary and family bookings requiring strict table capacity checks. |
-| 8 | **Burma Burma Restaurant & Tea Room** | Indiranagar | +91 80 4300 8120 / info@ | Burmese Vegetarian | 100% vegetarian premium dining with long waitlists during festival weeks and weekend lunches. |
-| 9 | **Sly Granny** | 100ft Road, Indiranagar | +91 80 4853 6712 / Public desk | Eclectic European Bistro | Multi-floor venue with distinct seating zones (living room, terrace); benefits from floor allocation. |
-| 10 | **Milano Ice Cream & Cafe Bistro** | 100ft Road, Indiranagar | Public business contact | Italian Artisanal Cafe | High evening footfall where small outdoor tables need quick turnaround. |
-| 11 | **Brik Oven** | Church Street / Indiranagar | +91 98809 46789 / Public Desk | Neapolitan Sourdough Pizzeria | Compact dining rooms with high pizza table turnover; 90-min limit helps maximize seat yield. |
-| 12 | **Kaviar Seafood & Grill** | Koramangala 4th Block | Public business line | Coastal Seafood & Grill | Independent seafood bistro matching our demo profile (The Coastal Bistro); easy 1-to-1 demo. |
-| 13 | **The Reservoire** | 5th Block, Koramangala | +91 91489 09777 / Public Desk | Multi-cuisine Cocktail Bar | Large seating capacity where hosts currently juggle multiple floor managers and registers. |
-| 14 | **Sunny’s** | Lavelle Road | +91 80 4132 9366 / Public desk | European & Italian Bistro | Longstanding Bangalore institution with regular loyal diners; repeat customer deduplication is a major win. |
+> **Strict Compliance Policy:** In accordance with data hygiene rules, all prospect information must be personally scouted, verified, and populated by you. Never use scraped, unverified phone numbers or unapproved brand names.
 
 ---
 
-## Suggested Daily Outreach Workflow
+## 1. Prime Pilot Partner Qualification Rubric
 
-1. **Pick 3 restaurants per day** from the list above.
-2. **Review their public Instagram page** or website for a recent post (e.g. new weekend special or renovated seating).
-3. **Fill in the template** in `sales-kit/02-outreach-and-templates.md` with:
-   - Specific owner/manager name (or Front-of-House Manager).
-   - Restaurant name.
-   - Genuine observation about their food/ambiance.
-4. **Send via Direct Message or Public WhatsApp Business number**.
-5. **Log responses** in a simple spreadsheet with date, status (Pending, Demo Booked, Not Interested), and follow-up date.
+Target independent dining rooms meeting at least 4 of the following 5 criteria:
+
+| Criteria | Ideal Indicator | Why It Matters |
+|---|---|---|
+| **Independent Ownership** | Single-location or 2-unit boutique bistro | The decision-maker (owner or GM) is physically present on floor |
+| **High Weekend Demand** | Tables fill up between 7:30 PM and 10:00 PM | Pain point of phone interruptions is acute |
+| **Compact Table Count** | 8 to 25 physical tables | Double-booking hurts them immediately; easy to map into TableMate |
+| **Active Instagram Presence** | Posts weekly specials, stories, or events | Can place `/r/:slug/book` directly in their Instagram bio |
+| **Manual Reservation Diary** | Host uses paper register or personal WhatsApp | Immediate, obvious upgrade without replacing enterprise POS |
+
+---
+
+## 2. Personal Lead Tracking Log (Populate with Your Scored Venues)
+
+| # | Restaurant Name | Neighbourhood | Owner / GM Contact | Target Date | Pitch Status | Notes / Observations |
+|---|---|---|---|---|---|---|
+| 1 | *[Your Scouted Venue]* | *[Area]* | *[Contact / IG]* | *[DD/MM]* | Identified | *[e.g. Busy Friday courtyard, manual book]* |
+| 2 | *[Your Scouted Venue]* | *[Area]* | *[Contact / IG]* | *[DD/MM]* | Identified | *[e.g. Popular Sunday brunch, 12 tables]* |
+| 3 | *[Your Scouted Venue]* | *[Area]* | *[Contact / IG]* | *[DD/MM]* | Identified | *[e.g. Date-night pasta bar, high call volume]* |
+| 4 | *[Your Scouted Venue]* | *[Area]* | *[Contact / IG]* | *[DD/MM]* | Identified | *[e.g. Rooftop dining, clashes with walk-ins]* |
+| 5 | *[Your Scouted Venue]* | *[Area]* | *[Contact / IG]* | *[DD/MM]* | Identified | *[e.g. Seafood specials, weekend waitlists]* |
+
+---
+
+## 3. Daily Outreach Discipline
+
+1. **Scout 3 venues per morning:** Walk by in the afternoon or inspect their Instagram profile.
+2. **Identify the decision-maker:** Ask the host: *"Who manages table reservations here on weekends?"*
+3. **Dispatch personalized template:** Use the templates in `sales-kit/02-outreach-and-templates.md`.
+4. **Log status:** Track responses as *Contacted*, *Demo Scheduled*, *Onboarded*, or *Passed*.
